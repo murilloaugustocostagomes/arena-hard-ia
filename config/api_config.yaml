@@ -1,0 +1,152 @@
+# Examples of api config below
+
+# Proprietary models examples
+gpt-4-1106-preview:
+    model: gpt-4-1106-preview
+    endpoints: null
+    api_type: openai
+    parallel: 32
+    max_tokens: 4096
+    temperature: 0.0
+
+gpt-4.1:
+    model: gpt-4.1
+    endpoints: null
+    api_type: openai
+    parallel: 64
+    max_tokens: 32000
+    temperature: 0.0
+
+# gemini-2.5:
+#     model: gemini-2.5-pro-preview-03-25
+#     endpoints: null
+#     api_type: gemini
+#     parallel: 50
+
+gemini-2.5:
+    model: gemini-2.5-pro-preview-03-25
+    endpoints: null
+    api_type: vertex
+    parallel: 16
+    project_id: <project_id>
+    regions: <region>
+
+claude-3-7-sonnet-20250219-thinking-16k:
+    model: claude-3-7-sonnet-20250219
+    endpoints: null
+    max_tokens: 20000
+    budget_tokens: 16000
+    api_type: anthropic_thinking
+    parallel: 32
+
+deepseek-r1:
+    endpoints:
+        - api_key: <your_api_key>
+    api_type: deepseek_reasoner
+    parallel: 32
+
+claude-3-5-sonnet-20241022:
+    model: claude-3-5-sonnet-20241022
+    endpoints: null
+    max_tokens: 20000
+    api_type: anthropic
+    parallel: 32
+
+o3-mini-2025-01-31-high:
+    model: o3-mini-2025-01-31
+    endpoints: null
+    reasoning_effort: high
+    api_type: openai_thinking
+    parallel: 32
+
+gpt-4o-mini-2024-07-18:
+    model: gpt-4o-mini
+    endpoints: null
+    api_type: openai
+    parallel: 128
+    max_tokens: 8196
+    temperature: 0.0
+
+# Local inference examples
+qwq-32b:
+    model: Qwen/QwQ-32B
+    endpoints: null
+    api_type: sglang
+    local_engine: True
+    temperature: 0.6
+    end_think_token: "</think>"
+    max_tokens: 32000
+    
+gemma-3-27b-it:
+    model: google/gemma-3-27b-it
+    endpoints:
+        - api_base: http://0.0.0.0:<port_number>/v1
+          api_key: '-'
+    api_type: openai
+    parallel: 128
+    max_tokens: 8196
+    temperature: 0.0
+
+
+#******** AWS NOVA MODEL *****************#
+aws_nova_light_v1:
+    model: aws_nova_light_v1
+    model_id: us.amazon.nova-lite-v1:0
+    endpoints: null
+    api_type: aws_nova
+    parallel: 8 
+    max_tokens: 4096
+    temperature: 0.0
+    
+
+
+# ===========================================================================
+# ADAPTAÇÕES DESTE FORK
+# ---------------------------------------------------------------------------
+# 1) Nenhuma chave de API fica escrita aqui. Use ${VAR}; o valor é resolvido a
+#    partir do ambiente ou do arquivo .env (veja .env.example).
+# 2) O api_type "openai_compatible" atende qualquer servidor que fale a API da
+#    OpenAI: vLLM, SGLang, Ollama, LM Studio, OpenRouter, Together, Groq...
+# ===========================================================================
+
+# --- Qualquer endpoint OpenAI-compatível, configurado pelo .env -------------
+local-model:
+    model: ${LOCAL_MODEL_NAME:-meu-modelo}
+    api_type: openai_compatible
+    endpoints:
+        - api_base: ${LOCAL_API_BASE:-http://localhost:8000/v1}
+          api_key: ${LOCAL_API_KEY:-EMPTY}
+    parallel: 8
+    max_tokens: 4096
+    temperature: 0.0
+
+# --- OpenAI lendo a chave do .env em vez de variável global -----------------
+gpt-4.1-env:
+    model: gpt-4.1
+    api_type: openai_compatible
+    endpoints:
+        - api_base: ${OPENAI_BASE_URL:-https://api.openai.com/v1}
+          api_key: ${OPENAI_API_KEY}
+    parallel: 16
+    max_tokens: 16000
+    temperature: 0.0
+
+# --- Modelos falsos servidos por scripts/mock_server.py (custo zero) --------
+# Usados por `make smoke` para validar o pipeline de ponta a ponta.
+mock-strong: &mock
+    model: mock-strong
+    api_type: openai_compatible
+    endpoints:
+        - api_base: ${MOCK_API_BASE:-http://localhost:8000/v1}
+          api_key: EMPTY
+    parallel: 8
+    max_tokens: 2048
+    temperature: 0.0
+
+mock-baseline:
+    <<: *mock
+    model: mock-baseline
+
+mock-weak:
+    <<: *mock
+    model: mock-weak

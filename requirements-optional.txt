@@ -1,0 +1,10 @@
+# Provedores extras — instale só o que for usar.
+anthropic      # api_type: anthropic, anthropic_thinking
+mistralai      # api_type: mistral
+cohere         # api_type: cohere
+boto3          # api_type: aws_* (Amazon Bedrock)
+google-cloud-aiplatform  # api_type: vertex (juiz gemini-2.5)
+
+# Visualizador de respostas/julgamentos (qa_browser.py)
+gradio>=5.25.2
+plotly

@@ -1,0 +1,8 @@
+# Geração de respostas para o benchmark sintético (custo zero).
+# Requer scripts/mock_server.py rodando. Veja `make smoke`.
+bench_name: arena-hard-mock
+
+model_list:
+  - mock-baseline
+  - mock-strong
+  - mock-weak

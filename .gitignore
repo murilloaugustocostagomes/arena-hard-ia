@@ -1,0 +1,20 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+
+# --- Segredos ---
+config/api_config.local.yaml
+
+# --- Dados pesados do benchmark ---
+# question.jsonl é versionado; respostas e julgamentos (centenas de MB) não.
+data/*/model_answer/
+data/*/model_judgment/
+data/tmp/
+
+# --- Saídas ---
+results/
+*.log

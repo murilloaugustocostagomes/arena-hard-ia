@@ -1,0 +1,19 @@
+# Julgamento do benchmark sintético (custo zero).
+# Requer scripts/mock_server.py rodando. Veja `make smoke`.
+judge_model: mock-baseline
+temperature: 0.0
+max_tokens: 2048
+
+bench_name: arena-hard-mock
+
+reference: null
+
+regex_patterns:
+  - \[\[([AB<>=]+)\]\]
+  - \[([AB<>=]+)\]
+
+prompt_template: "<|User Prompt|>\n{QUESTION}\n\n<|The Start of Assistant A's Answer|>\n{ANSWER_A}\n<|The End of Assistant A's Answer|>\n\n<|The Start of Assistant B's Answer|>\n{ANSWER_B}\n<|The End of Assistant B's Answer|>"
+
+model_list:
+  - mock-strong
+  - mock-weak

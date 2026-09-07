@@ -1,0 +1,11 @@
+# Núcleo — necessário para gen_answer / gen_judgment / show_result
+openai>=1.0
+pyyaml
+numpy
+pandas
+shortuuid
+tqdm
+requests
+scikit-learn
+torch          # usado pelo controle de estilo em show_result.py
+tiktoken       # opcional na prática: utils/tokenizer.py cai numa estimativa se faltar
